@@ -1,62 +1,80 @@
 .header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 30px 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.85);
+  border-bottom: 1px solid var(--qc-border);
+  backdrop-filter: blur(12px);
 }
 
 .header-container {
-  max-width: 1200px;
+  max-width: 1280px;
   margin: 0 auto;
-  text-align: center;
+  padding: 20px 24px;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
 }
 
 .header-title {
-  font-size: 2.5rem;
-  margin-bottom: 10px;
+  font-size: 2.3rem;
+  margin: 0 0 6px;
   font-weight: 700;
+  color: var(--qc-ink);
+  letter-spacing: -0.02em;
 }
 
 .header-subtitle {
-  font-size: 1.1rem;
-  opacity: 0.9;
-  font-weight: 300;
+  font-size: 1rem;
+  color: var(--qc-muted);
+  font-weight: 400;
+}
+
+.cart-icon-btn {
+  position: relative;
+  font-size: 20px;
+  background: var(--qc-ink);
+  border: none;
+  color: white;
+  width: 46px;
+  height: 46px;
+  border-radius: 999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cart-icon-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 22px rgba(31, 42, 55, 0.2);
+}
+
+.cart-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: var(--qc-highlight);
+  color: #1f2a37;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
 }
 
 @media (max-width: 768px) {
   .header-title {
-    font-size: 2rem;
+    font-size: 1.9rem;
   }
-  
-  .header-subtitle {
-    font-size: 1rem;
+
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
   }
-}
-.header-content{
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
-
-.cart-icon-btn{
-position:relative;
-font-size:24px;
-background:none;
-border:none;
-cursor:pointer;
-}
-
-.cart-badge{
-position:absolute;
-top:-8px;
-right:-8px;
-background:red;
-color:white;
-border-radius:50%;
-width:22px;
-height:22px;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:12px;
 }

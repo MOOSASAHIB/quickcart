@@ -8,7 +8,7 @@ const handleImageError = (event) => {
   event.currentTarget.src = fallbackImage;
 };
 
-function CartSidebar({ isOpen, onClose, cart, onUpdateQuantity, onRemoveItem }) {
+function CartSidebar({ cart, onUpdateQuantity, onRemoveItem }) {
 
   const calculateTotal = () => {
     return cart.reduce((total, item) => {
@@ -16,18 +16,24 @@ function CartSidebar({ isOpen, onClose, cart, onUpdateQuantity, onRemoveItem }) 
     }, 0);
   };
 
+  const totalItems = cart.reduce((total, item) => {
+    return total + item.quantity;
+  }, 0);
+
   return (
-    <div className={`cart-sidebar ${isOpen ? "open" : ""}`}>
+    <div className="cart-summary">
 
       <div className="cart-header">
-        <h2>Your Cart</h2>
-        <button onClick={onClose} className="close-btn">✕</button>
+        <div>
+          <h2>Cart Summary</h2>
+          <p className="cart-subtitle">{totalItems} items</p>
+        </div>
       </div>
 
       <div className="cart-items">
 
         {cart.length === 0 ? (
-          <p className="empty-cart">Your cart is empty</p>
+          <p className="empty-cart">Your cart is empty.</p>
         ) : (
 
           cart.map(item => (
@@ -42,38 +48,46 @@ function CartSidebar({ isOpen, onClose, cart, onUpdateQuantity, onRemoveItem }) 
               />
 
               <div className="cart-item-details">
-                <h4>{item.name}</h4>
-                <p>${item.price}</p>
+                <div className="cart-item-header">
+                  <h4>{item.name}</h4>
+                  <button
+                    className="remove-btn"
+                    onClick={() => onRemoveItem(item.id)}
+                  >
+                    Remove
+                  </button>
+                </div>
+
+                <div className="cart-item-meta">
+                  <span className="cart-item-price">
+                    ${item.price.toFixed(2)}
+                  </span>
+
+                  <div className="quantity-controls">
+                    <button
+                      onClick={() =>
+                        onUpdateQuantity(item.id, item.quantity - 1)
+                      }
+                    >
+                      -
+                    </button>
+
+                    <span>{item.quantity}</span>
+
+                    <button
+                      onClick={() =>
+                        onUpdateQuantity(item.id, item.quantity + 1)
+                      }
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                <span className="cart-item-total">
+                  Line total: ${(item.price * item.quantity).toFixed(2)}
+                </span>
               </div>
-
-              <div className="quantity-controls">
-
-                <button
-                  onClick={() =>
-                    onUpdateQuantity(item.id, item.quantity - 1)
-                  }
-                >
-                  -
-                </button>
-
-                <span>{item.quantity}</span>
-
-                <button
-                  onClick={() =>
-                    onUpdateQuantity(item.id, item.quantity + 1)
-                  }
-                >
-                  +
-                </button>
-
-              </div>
-
-              <button
-                className="remove-btn"
-                onClick={() => onRemoveItem(item.id)}
-              >
-                ✕
-              </button>
 
             </div>
 
@@ -88,7 +102,7 @@ function CartSidebar({ isOpen, onClose, cart, onUpdateQuantity, onRemoveItem }) 
         <div className="cart-footer">
 
           <div className="cart-total">
-            <span>Total:</span>
+            <span>Total</span>
             <span>${calculateTotal().toFixed(2)}</span>
           </div>
 

@@ -1,4 +1,5 @@
 import ProductCard from "./ProductCard";
+import "../styles/productlist.css";
 
 function ProductList({ products, onAddToCart }) {
   return (

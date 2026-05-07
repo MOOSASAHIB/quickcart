@@ -8,7 +8,6 @@ import './styles/App.css';
 function App() {
 
   const [cart, setCart] = useState([]);
-  const [isCartOpen, setIsCartOpen] = useState(false);
 
   const addToCart = (product) => {
     const existingItem = cart.find(item => item.id === product.id);
@@ -45,12 +44,16 @@ function App() {
     }
   };
 
-  const toggleCart = () => {
-    setIsCartOpen(!isCartOpen);
-  };
-
   const getTotalItems = () => {
     return cart.reduce((total, item) => total + item.quantity, 0);
+  };
+
+  const handleCartClick = () => {
+    const cartSection = document.getElementById('cart-summary');
+
+    if (cartSection) {
+      cartSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
 
   return (
@@ -58,23 +61,27 @@ function App() {
 
       <Header
         cartItemCount={getTotalItems()}
-        onCartClick={toggleCart}
+        onCartClick={handleCartClick}
       />
 
       <main className="main-content">
-        <ProductList
-          products={products}
-          onAddToCart={addToCart}
-        />
-      </main>
+        <div className="shopping-layout">
+          <section className="product-area">
+            <ProductList
+              products={products}
+              onAddToCart={addToCart}
+            />
+          </section>
 
-      <CartSidebar
-        isOpen={isCartOpen}
-        onClose={toggleCart}
-        cart={cart}
-        onUpdateQuantity={updateQuantity}
-        onRemoveItem={removeFromCart}
-      />
+          <aside className="cart-area" id="cart-summary">
+            <CartSidebar
+              cart={cart}
+              onUpdateQuantity={updateQuantity}
+              onRemoveItem={removeFromCart}
+            />
+          </aside>
+        </div>
+      </main>
 
     </div>
   );

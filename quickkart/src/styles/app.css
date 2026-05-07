@@ -1,3 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap');
+
+:root {
+  --qc-bg: #f7f2ea;
+  --qc-surface: #ffffff;
+  --qc-ink: #1f2a37;
+  --qc-muted: #5b6b7c;
+  --qc-accent: #1f7a8c;
+  --qc-accent-strong: #145f6d;
+  --qc-highlight: #f4a261;
+  --qc-border: rgba(31, 42, 55, 0.12);
+  --qc-shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
+  --qc-radius: 18px;
+  --qc-radius-sm: 12px;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -5,9 +21,12 @@
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f5f5f5;
-  color: #333;
+  font-family: 'Sora', 'Segoe UI', sans-serif;
+  background:
+    radial-gradient(1200px 600px at -10% -10%, #dff1ff 0%, transparent 60%),
+    radial-gradient(900px 600px at 110% 10%, #ffe9d6 0%, transparent 55%),
+    #f7f2ea;
+  color: var(--qc-ink);
 }
 
 .app {
@@ -15,7 +34,40 @@ body {
 }
 
 .main-content {
-  max-width: 1200px;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 32px 24px 64px;
+}
+
+.shopping-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 28px;
+  align-items: start;
+}
+
+.product-area {
+  min-width: 0;
+}
+
+.cart-area {
+  position: sticky;
+  top: 24px;
+  align-self: start;
+}
+
+@media (max-width: 1100px) {
+  .shopping-layout {
+    grid-template-columns: minmax(0, 1fr) 300px;
+  }
+}
+
+@media (max-width: 900px) {
+  .shopping-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .cart-area {
+    position: static;
+  }
 }
