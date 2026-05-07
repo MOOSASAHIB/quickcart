@@ -1,0 +1,146 @@
+.cart-summary {
+	background: var(--qc-surface);
+	border: 1px solid var(--qc-border);
+	border-radius: var(--qc-radius);
+	box-shadow: var(--qc-shadow);
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.cart-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding-bottom: 12px;
+	border-bottom: 1px solid var(--qc-border);
+}
+
+.cart-header h2 {
+	font-size: 1.2rem;
+	color: var(--qc-ink);
+}
+
+.cart-subtitle {
+	margin-top: 4px;
+	font-size: 0.85rem;
+	color: var(--qc-muted);
+}
+
+.cart-items {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	max-height: 420px;
+	overflow-y: auto;
+	padding-right: 4px;
+}
+
+.cart-item {
+	display: grid;
+	grid-template-columns: 56px 1fr;
+	gap: 12px;
+}
+
+.cart-item-image {
+	width: 56px;
+	height: 56px;
+	object-fit: cover;
+	border-radius: 10px;
+	background: #eef2f6;
+	border: 1px solid var(--qc-border);
+}
+
+.cart-item-details {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.cart-item-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+}
+
+.cart-item-header h4 {
+	font-size: 0.95rem;
+	font-weight: 600;
+	color: var(--qc-ink);
+}
+
+.cart-item-meta {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10px;
+}
+
+.cart-item-price {
+	font-size: 0.95rem;
+	font-weight: 600;
+	color: var(--qc-ink);
+}
+
+.cart-item-total {
+	font-size: 0.8rem;
+	color: var(--qc-muted);
+}
+
+.quantity-controls {
+	display: inline-flex;
+	align-items: center;
+	border: 1px solid var(--qc-border);
+	border-radius: 999px;
+	overflow: hidden;
+	background: #f7f7f5;
+}
+
+.quantity-controls button {
+	padding: 4px 10px;
+	cursor: pointer;
+	background: none;
+	border: none;
+	color: var(--qc-ink);
+	font-weight: 600;
+}
+
+.quantity-controls span {
+	min-width: 20px;
+	text-align: center;
+	font-size: 0.85rem;
+	color: var(--qc-ink);
+}
+
+.remove-btn {
+	background: none;
+	border: none;
+	font-size: 0.8rem;
+	cursor: pointer;
+	color: var(--qc-muted);
+}
+
+.remove-btn:hover {
+	color: var(--qc-accent-strong);
+}
+
+.empty-cart {
+	font-size: 0.95rem;
+	color: var(--qc-muted);
+	padding: 12px 0;
+}
+
+.cart-footer {
+	padding-top: 12px;
+	border-top: 1px solid var(--qc-border);
+}
+
+.cart-total {
+	display: flex;
+	justify-content: space-between;
+	font-weight: 700;
+	color: var(--qc-ink);
+	font-size: 1.05rem;
+}
