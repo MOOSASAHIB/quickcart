@@ -1,89 +1,79 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useState } from 'react';
-import Header from './components/Header';
-import ProductList from './components/ProductList';
-import CartSidebar from './components/CartSidebar';
+import Header from './components/header';
+import HomePage from './components/homepage';
+import CategoryPage from './components/CategoryPage';
+import SearchPage from './components/searchpage';
+import CartPage from './components/cartpage';
+import CartSidebar from './components/cartsidebar';
 import { products } from './data/product';
-import './styles/App.css';
+import './styles/app.css';
 
 function App() {
+  const [searchTerm, setSearchTerm] = useState('');
 
-  const [cart, setCart] = useState([]);
-
-  const addToCart = (product) => {
-    const existingItem = cart.find(item => item.id === product.id);
-
-    if (existingItem) {
-      setCart(
-        cart.map(item =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        )
-      );
-    } else {
-      setCart([...cart, { ...product, quantity: 1 }]);
-    }
-  };
-
-  const removeFromCart = (productId) => {
-    setCart(cart.filter(item => item.id !== productId));
-  };
-
-  const updateQuantity = (productId, newQuantity) => {
-
-    if (newQuantity <= 0) {
-      removeFromCart(productId);
-    } else {
-      setCart(
-        cart.map(item =>
-          item.id === productId
-            ? { ...item, quantity: newQuantity }
-            : item
-        )
-      );
-    }
-  };
-
-  const getTotalItems = () => {
-    return cart.reduce((total, item) => total + item.quantity, 0);
-  };
-
-  const handleCartClick = () => {
-    const cartSection = document.getElementById('cart-summary');
-
-    if (cartSection) {
-      cartSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
+  const categories = Array.from(
+    new Set(products.map((product) => product.category))
+  );
 
   return (
-    <div className="app">
+    <BrowserRouter>
+      <div className="app">
+        <Header
+          searchTerm={searchTerm}
+          onSearchChange={setSearchTerm}
+          categories={categories}
+        />
 
-      <Header
-        cartItemCount={getTotalItems()}
-        onCartClick={handleCartClick}
-      />
-
-      <main className="main-content">
-        <div className="shopping-layout">
-          <section className="product-area">
-            <ProductList
-              products={products}
-              onAddToCart={addToCart}
+        <main className="main-content">
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <div className="shopping-layout">
+                  <section className="product-area">
+                    <HomePage products={products} searchTerm={searchTerm} />
+                  </section>
+                  <aside className="cart-area">
+                    <CartSidebar />
+                  </aside>
+                </div>
+              }
             />
-          </section>
 
-          <aside className="cart-area" id="cart-summary">
-            <CartSidebar
-              cart={cart}
-              onUpdateQuantity={updateQuantity}
-              onRemoveItem={removeFromCart}
+            <Route
+              path="/category/:category"
+              element={
+                <div className="shopping-layout">
+                  <section className="product-area">
+                    <CategoryPage products={products} />
+                  </section>
+                  <aside className="cart-area">
+                    <CartSidebar />
+                  </aside>
+                </div>
+              }
             />
-          </aside>
-        </div>
-      </main>
 
-    </div>
+            <Route
+              path="/search"
+              element={
+                <div className="shopping-layout">
+                  <section className="product-area">
+                    <SearchPage products={products} />
+                  </section>
+                  <aside className="cart-area">
+                    <CartSidebar />
+                  </aside>
+                </div>
+              }
+            />
+
+            <Route path="/cart" element={<CartPage />} />
+          </Routes>
+        </main>
+      </div>
+    </BrowserRouter>
   );
 }
 
