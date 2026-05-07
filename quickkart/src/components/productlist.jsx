@@ -1,10 +1,10 @@
-import ProductCard from "./ProductCard";
+import ProductCard from "./productcard";
 import "../styles/productlist.css";
 
-function ProductList({ products, onAddToCart }) {
+function ProductList({ products, onAddToCart, title = "Our Products" }) {
   return (
     <div className="product-list">
-      <h2 className="section-title">Our Products</h2>
+      {title && <h2 className="section-title">{title}</h2>}
 
       <div className="product-grid">
         {products.map((product) => (
